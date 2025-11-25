@@ -1,0 +1,16 @@
+{
+  "name": "chatty-boxy",
+  "version": "1.0.0",
+  "description": "Gemini File Search API Demo",
+  "main": "file_search_demo.js",
+  "type": "module",
+  "scripts": {
+    "start": "node file_search_demo.js"
+  },
+  "keywords": ["gemini", "file-search", "ai"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@google/genai": "^1.30.0"
+  }
+}
