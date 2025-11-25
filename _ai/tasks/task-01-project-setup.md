@@ -66,7 +66,7 @@ Add the following dependencies to your existing `package.json`:
 
 **New dependencies**:
 - `axios`: HTTP client for Confluence API
-- `better-sqlite3`: SQLite database for metadata
+- `better-sqlite3`: Native SQLite database with synchronous API (better performance than sql.js)
 - `node-cron`: Scheduled sync functionality
 - `dotenv`: Environment variable management
 - `turndown`: HTML to Markdown conversion

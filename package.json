@@ -11,15 +11,21 @@
     "schedule": "node src/index.js schedule",
     "demo": "node file_search_demo.js"
   },
-  "keywords": ["confluence", "chatbot", "gemini", "ai", "file-search"],
+  "keywords": [
+    "confluence",
+    "chatbot",
+    "gemini",
+    "ai",
+    "file-search"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
     "@google/genai": "^1.30.0",
     "axios": "^1.6.0",
-    "sql.js": "^1.10.0",
-    "node-cron": "^3.0.0",
+    "better-sqlite3": "^12.4.6",
     "dotenv": "^16.0.0",
+    "node-cron": "^3.0.0",
     "turndown": "^7.1.0"
   }
 }
