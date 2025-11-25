@@ -16,6 +16,12 @@ pids
 .env.local
 .env.*.local
 
+# Data
+data/
+*.db
+*.db-shm
+*.db-wal
+
 # OS files
 .DS_Store
 Thumbs.db

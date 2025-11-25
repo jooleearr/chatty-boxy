@@ -1,16 +1,25 @@
 {
   "name": "chatty-boxy",
   "version": "1.0.0",
-  "description": "Gemini File Search API Demo",
-  "main": "file_search_demo.js",
   "type": "module",
+  "description": "Confluence-integrated chatbot using Gemini File Search API",
+  "main": "src/index.js",
   "scripts": {
-    "start": "node file_search_demo.js"
+    "start": "node src/index.js",
+    "sync": "node src/index.js sync",
+    "chat": "node src/index.js chat",
+    "schedule": "node src/index.js schedule",
+    "demo": "node file_search_demo.js"
   },
-  "keywords": ["gemini", "file-search", "ai"],
+  "keywords": ["confluence", "chatbot", "gemini", "ai", "file-search"],
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@google/genai": "^1.30.0"
+    "@google/genai": "^1.30.0",
+    "axios": "^1.6.0",
+    "sql.js": "^1.10.0",
+    "node-cron": "^3.0.0",
+    "dotenv": "^16.0.0",
+    "turndown": "^7.1.0"
   }
 }
