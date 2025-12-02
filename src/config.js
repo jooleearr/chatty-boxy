@@ -43,56 +43,72 @@ function parseSpaceKeys(spaceKeysString) {
 }
 
 /**
- * Configuration object
+ * Build configuration object from environment variables
+ * Use this for testing or when you need a fresh config without validation/logging
  */
-export const config = {
-  // Confluence settings
-  confluence: {
-    baseUrl: process.env.CONFLUENCE_BASE_URL?.replace(/\/$/, ''), // Remove trailing slash
-    email: process.env.CONFLUENCE_EMAIL,
-    apiToken: process.env.CONFLUENCE_API_TOKEN,
-    spaceKeys: parseSpaceKeys(process.env.CONFLUENCE_SPACE_KEYS),
-  },
+export function buildConfig() {
+  return {
+    // Confluence settings
+    confluence: {
+      baseUrl: process.env.CONFLUENCE_BASE_URL?.replace(/\/$/, ''), // Remove trailing slash
+      email: process.env.CONFLUENCE_EMAIL,
+      apiToken: process.env.CONFLUENCE_API_TOKEN,
+      spaceKeys: parseSpaceKeys(process.env.CONFLUENCE_SPACE_KEYS),
+    },
 
-  // Gemini API settings
-  gemini: {
-    apiKey: process.env.GOOGLE_API_KEY,
-    model: process.env.GEMINI_MODEL || 'gemini-2.5-flash',
-    fileSearchStoreName: process.env.FILE_SEARCH_STORE_NAME || 'confluence-knowledge-base',
-  },
+    // Gemini API settings
+    gemini: {
+      apiKey: process.env.GOOGLE_API_KEY,
+      model: process.env.GEMINI_MODEL || 'gemini-2.5-flash',
+      fileSearchStoreName: process.env.FILE_SEARCH_STORE_NAME || 'confluence-knowledge-base',
+    },
 
-  // Sync settings
-  sync: {
-    intervalHours: parseInt(process.env.SYNC_INTERVAL_HOURS || '24', 10),
-    maxPagesPerSync: parseInt(process.env.MAX_PAGES_PER_SYNC || '500', 10),
-    excludeArchived: process.env.EXCLUDE_ARCHIVED !== 'false', // Default true
-    operationPollInterval: 2000, // 2 seconds
-  },
+    // Sync settings
+    sync: {
+      intervalHours: parseInt(process.env.SYNC_INTERVAL_HOURS || '24', 10),
+      maxPagesPerSync: parseInt(process.env.MAX_PAGES_PER_SYNC || '500', 10),
+      excludeArchived: process.env.EXCLUDE_ARCHIVED !== 'false', // Default true
+      operationPollInterval: 2000, // 2 seconds
+    },
 
-  // Storage settings
-  storage: {
-    dbPath: process.env.DB_PATH || path.join(projectRoot, 'data', 'confluence-sync.db'),
-    contentDir: process.env.CONTENT_DIR || path.join(projectRoot, 'data', 'confluence-content'),
-  },
+    // Storage settings
+    storage: {
+      dbPath: process.env.DB_PATH || path.join(projectRoot, 'data', 'confluence-sync.db'),
+      contentDir: process.env.CONTENT_DIR || path.join(projectRoot, 'data', 'confluence-content'),
+    },
 
-  // Logging settings
-  logging: {
-    level: process.env.LOG_LEVEL || 'info',
-  },
+    // Logging settings
+    logging: {
+      level: process.env.LOG_LEVEL || 'info',
+    },
 
-  // Paths
-  paths: {
-    projectRoot,
-    src: __dirname,
-    data: path.join(projectRoot, 'data'),
-  },
-};
+    // Paths
+    paths: {
+      projectRoot,
+      src: __dirname,
+      data: path.join(projectRoot, 'data'),
+    },
+  };
+}
+
+/**
+ * Configuration object - initialized at module load
+ * For production use, call initializeConfig() at app startup to validate and log config
+ */
+export let config = buildConfig();
 
 /**
  * Initialize and validate configuration
+ * Call this at application startup to:
+ * - Rebuild config from current environment
+ * - Validate all required fields are present
+ * - Log configuration details
+ * 
+ * Returns true if valid, false if validation fails
  */
 export function initializeConfig() {
   try {
+    config = buildConfig();
     validateConfig();
     console.log('✓ Configuration loaded successfully');
     console.log(`  Confluence: ${config.confluence.baseUrl}`);

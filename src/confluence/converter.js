@@ -65,6 +65,11 @@ export class ConfluenceConverter {
     // Convert HTML to Markdown
     let markdown = this.turndownService.turndown(storageValue);
 
+    // If no content, add a placeholder
+    if (!markdown.trim()) {
+      markdown = '*No content available*';
+    }
+
     // Build metadata header
     const metadata = this.buildMetadataHeader(page, baseUrl);
 

@@ -9,7 +9,11 @@
     "sync": "node src/index.js sync",
     "chat": "node src/index.js chat",
     "schedule": "node src/index.js schedule",
-    "demo": "node file_search_demo.js"
+    "demo": "node file_search_demo.js",
+    "test": "vitest",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage"
   },
   "keywords": [
     "confluence",
@@ -27,5 +31,9 @@
     "dotenv": "^16.0.0",
     "node-cron": "^3.0.0",
     "turndown": "^7.1.0"
+  },
+  "devDependencies": {
+    "@vitest/ui": "^3.2.4",
+    "vitest": "^3.2.4"
   }
 }
